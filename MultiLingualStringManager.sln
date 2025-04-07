@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLSM.UI", "MLSM.UI\MLSM.UI.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLSM.Backoffice", "MLSM.Backoffice\MLSM.Backoffice.csproj", "{C03F0DF5-8516-4E75-A76B-7DB32FBF6AF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLSM.Api", "MLSM.Api\MLSM.Api.csproj", "{70CD19D8-38F5-4058-9997-5B242F2AC3BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLSM.Api", "MLSM.Api\MLSM.Api.csproj", "{972960D9-99F8-419C-BB0B-47F81592BD78}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "MLSM.Shared", "MLSM.Shared\MLSM.Shared.shproj", "{D8FFD0B4-19E6-4B0E-9486-BA8725B7A7C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,15 +25,18 @@ Global
 		{C03F0DF5-8516-4E75-A76B-7DB32FBF6AF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C03F0DF5-8516-4E75-A76B-7DB32FBF6AF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C03F0DF5-8516-4E75-A76B-7DB32FBF6AF7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{70CD19D8-38F5-4058-9997-5B242F2AC3BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{70CD19D8-38F5-4058-9997-5B242F2AC3BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{70CD19D8-38F5-4058-9997-5B242F2AC3BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{70CD19D8-38F5-4058-9997-5B242F2AC3BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{972960D9-99F8-419C-BB0B-47F81592BD78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{972960D9-99F8-419C-BB0B-47F81592BD78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{972960D9-99F8-419C-BB0B-47F81592BD78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{972960D9-99F8-419C-BB0B-47F81592BD78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {93271F87-B2B5-4694-8B49-C8E8B68E08BC}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		MLSM.Shared\MLSM.Shared.projitems*{d8ffd0b4-19e6-4b0e-9486-ba8725b7a7c6}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

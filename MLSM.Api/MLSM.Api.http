@@ -1,6 +1,0 @@
-@MLSM.Api_HostAddress = http://localhost:5270
-
-GET {{MLSM.Api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
