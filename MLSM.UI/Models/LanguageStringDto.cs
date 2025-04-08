@@ -1,5 +1,15 @@
 ﻿namespace MLSM.UI.Models
 {
+    public class LangManagerActionRequestDto
+    {
+        public string Code { get; set; } = string.Empty;
+        public string TitleEn { get; set; } = string.Empty;
+        public string TitleAr { get; set; } = string.Empty;
+        public string Tags { get; set; } = string.Empty;
+        public string Url { get; set; } = string.Empty;
+        public char Action { get; set; }
+
+    }
     public class LanguageStringResponseDto
     {
     }
