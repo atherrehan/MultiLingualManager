@@ -1,12 +1,16 @@
 ﻿namespace MLSM.UI.Models
 {
+    public class LangEdit
+    {
+        public string Code { get; set; } = string.Empty;
+    }
     public class LangManagerActionRequestDto
     {
+        public string OldCode { get; set; } = string.Empty;
         public string Code { get; set; } = string.Empty;
         public string TitleEn { get; set; } = string.Empty;
         public string TitleAr { get; set; } = string.Empty;
         public string Tags { get; set; } = string.Empty;
-        public string Url { get; set; } = string.Empty;
         public char Action { get; set; }
 
     }

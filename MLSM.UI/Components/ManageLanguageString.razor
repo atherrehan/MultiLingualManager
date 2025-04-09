@@ -116,16 +116,25 @@
 					<button style="margin-left:60%" type="button" class="close" @onclick="HideModal">&times;</button>
 				</div>
 				<div class="modal-body">
+					@if (hasValidationErrors)
+					{
+						<span style=" margin-bottom:20px; color: red; font-weight:200"> @requiredField</span>
+					}
 					<EditForm Model="currentItem" OnValidSubmit="HandleValidSubmit">
 						<DataAnnotationsValidator />
 						<ValidationSummary />
 
 						<div class="form-group">
-							<label>@(currentCulture == "en-US" ? "English Text" : "عنوان بالإنجليزية")</label>
+							<label>@(currentCulture == "en-US" ? "Code" : "شفرة")</label>
+							<InputText class="form-control" @bind-Value="currentItem.Code" />
+						</div>
+
+						<div class="form-group" style="margin-top:10px">
+							<label>@(currentCulture == "en-US" ? "TitleEn" : "عنوان بالإنجليزية")</label>
 							<InputText class="form-control" @bind-Value="currentItem.TitleEn" />
 						</div>
 						<div class="form-group" style="margin-top:10px;">
-							<label>@(currentCulture == "en-US" ? "Arabic Text" : "عنوان بالعربية")</label>
+							<label>@(currentCulture == "en-US" ? "TitleAr" : "عنوان بالعربية")</label>
 							<InputText class="form-control" @bind-Value="currentItem.TitleAr" />
 						</div>
 						<div class="form-group" style="margin-top:10px">
@@ -142,6 +151,10 @@
 }
 
 @code {
+	private string oldCode { get; set; } = "";
+	private bool hasValidationErrors = false;
+	private string requiredField { get; set; } = "";
+	private char mode { get; set; } = 'D';
 	List<LanguageStringResponseDto> multilingualStrings = new();
 
 	protected override async Task OnInitializedAsync()
@@ -150,19 +163,13 @@
 		multilingualStrings = await _repo.GetStrings();
 	}
 
-	// Static list of multilingual strings (initial data)
-	// private List<LangManagerActionRequestDto> multilingualStrings = new List<LangManagerActionRequestDto>
-	// {
-	// 	new LangManagerActionRequestDto { Code = "Hi", TitleEn = "Hello", TitleAr = "مرحباً", Tags = "greeting" },
-	// 	new LangManagerActionRequestDto { Code = "Bye", TitleEn = "Goodbye", TitleAr = "وداعاً", Tags = "farewell" }
-	// };
-
 	private LanguageStringResponseDto currentItem = new LanguageStringResponseDto();
 	private bool isModalVisible = false;
 
 	private void ShowAddModal()
 	{
-		currentItem = new LanguageStringResponseDto(); // Reset the current item for adding new
+		mode = 'C';
+		currentItem = new LanguageStringResponseDto();
 		isModalVisible = true;
 	}
 
@@ -173,41 +180,70 @@
 
 	private void EditRecord(LanguageStringResponseDto item)
 	{
-		currentItem = item; // Set the item to be edited
+		LangEdit oneUse = new();
+		oneUse.Code = item.Code;
+		mode = 'U';
+		oldCode = oneUse.Code;
+		currentItem = item;
 		isModalVisible = true;
 	}
 
 	private void DeleteRecord(string code)
 	{
-		// Delete the record from the list
 		var recordToDelete = multilingualStrings.FirstOrDefault(m => m.Code == code);
 		if (recordToDelete != null)
 		{
 			multilingualStrings.Remove(recordToDelete);
 		}
 	}
-
-	private void HandleValidSubmit()
+	private bool isSave(LanguageStringResponseDto item)
 	{
-		if (string.IsNullOrEmpty(currentItem.Code))
+		if (string.IsNullOrEmpty(item.Code))
 		{
-			// Add new record
-			currentItem.Code = multilingualStrings.Max(m => m.Code) + 1; // Assign new ID
-			multilingualStrings.Add(currentItem);
+			requiredField = "Code is required";
+			return false;
+		}
+		else if (string.IsNullOrEmpty(item.TitleEn))
+		{
+			requiredField = "TitleEn is required";
+			return false;
+		}
+		else if (string.IsNullOrEmpty(item.TitleAr))
+		{
+			requiredField = "TitleAr is required";
+			return false;
+		}
+		return true;
+	}
+	private async Task HandleValidSubmit()
+	{
+		if (!isSave(currentItem))
+		{
+			hasValidationErrors = true;
 		}
 		else
 		{
-			// Edit existing record
-			var existingItem = multilingualStrings.FirstOrDefault(m => m.Code == currentItem.Code);
-			if (existingItem != null)
+			hasValidationErrors = false;
+			LangManagerService _repo = new(Configs.BaseUrl);
+			GenericResponseApi responseApi = new();
+			LangManagerActionRequestDto requestDto = new();
+			requestDto.Action = mode;
+			requestDto.OldCode = oldCode;
+			requestDto.Code = currentItem.Code;
+			requestDto.TitleEn = currentItem.TitleEn;
+			requestDto.TitleAr = currentItem.TitleAr;
+			requestDto.Tags = currentItem.Tags;
+			responseApi = await _repo.Action(requestDto);
+			if (!responseApi.ResponseCode.Equals("201"))
 			{
-				existingItem.TitleEn = currentItem.TitleEn;
-				existingItem.TitleAr = currentItem.TitleAr;
-				existingItem.Tags = currentItem.Tags;
+				hasValidationErrors = true;
+				requiredField = responseApi.ResponseMessage;
+			}
+			else
+			{
+				HideModal();
 			}
 		}
-
-		HideModal(); // Close the modal
 	}
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
