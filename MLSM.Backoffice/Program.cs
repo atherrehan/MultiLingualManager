@@ -14,7 +14,7 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
 }
 
-
+MLSM.UI.Models.Configs.BaseUrl = "http://localhost:5167/";
 app.UseAntiforgery();
 
 app.MapStaticAssets();

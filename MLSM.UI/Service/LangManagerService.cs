@@ -12,6 +12,23 @@ namespace MLSM.UI.Service
         {
             _apiUrl = apiUrl;
         }
+        public async Task<List<LanguageStringResponseDto>> GetStrings()
+        {
+            var result = new List<LanguageStringResponseDto>();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(_apiUrl);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+               HttpResponseMessage response = await client.GetAsync("api/strings");
+                if (response.IsSuccessStatusCode)
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    result = JsonSerializer.Deserialize<List<LanguageStringResponseDto>>(res, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                }
+                return result ?? new List<LanguageStringResponseDto>();
+            }
+        }
         public async Task<GenericResponseApi> Action(LangManagerActionRequestDto requestDto)
         {
             var result = new GenericResponseApi();

@@ -12,6 +12,11 @@
     }
     public class LanguageStringResponseDto
     {
+        public string Code { get; set; } = string.Empty;
+        public string TitleEn { get; set; } = string.Empty;
+        public string TitleAr { get; set; } = string.Empty;
+        public string Tags { get; set; } = string.Empty;
+        public string LastUpdateTimeStamp { get; set; } = string.Empty;
     }
     public class LanguageStringComponentResponseDto
     {
