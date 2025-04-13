@@ -44,12 +44,17 @@ app.MapDelete("/api/strings/{code}", async (string code, AppDbContext db) =>
     var item = await db.MultilingualStrings.FirstOrDefaultAsync(x => x.Code == code);
 
     if (item is null)
-        return Results.NotFound($"No record found with Code '{code}'");
+    {
+        return Results.BadRequest(new GenericResponseApi { ResponseCode = "404", ResponseMessage = $"No record found with Code '{code}'" });
+    }
 
     db.MultilingualStrings.Remove(item);
     await db.SaveChangesAsync();
-
-    return Results.Ok($"Record with Code = {code} deleted.");
+    return Results.Created($"/api/strings/{code}", new GenericResponseApi
+    {
+        ResponseCode = "201",
+        ResponseMessage = "Success."
+    });
 });
 
 app.MapPut("/api/strings/{code}", async (string code, LanguageStringEntity updatedString, AppDbContext db) =>
@@ -59,7 +64,11 @@ app.MapPut("/api/strings/{code}", async (string code, LanguageStringEntity updat
 
     if (existingRecord is null)
     {
-        return Results.NotFound($"No record found with Code '{code}'");
+        return Results.BadRequest(new GenericResponseApi
+        {
+            ResponseCode = "404",
+            ResponseMessage = $"No record found with Code '{code}'"
+        });
     }
     if (code != updatedString.Code)
     {
@@ -89,7 +98,11 @@ app.MapPut("/api/strings/{code}", async (string code, LanguageStringEntity updat
 
     await db.SaveChangesAsync();
 
-    return Results.Ok($"Record with Code = {code} updated.");
+    return Results.Created($"/api/strings/{code}", new GenericResponseApi
+    {
+        ResponseCode = "201",
+        ResponseMessage = "Success."
+    });
 });
 
 app.Run();

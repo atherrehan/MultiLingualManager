@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MLSM.Shared
+﻿namespace MLSM.Shared
 {
     public class GenericResponseApi
     {
