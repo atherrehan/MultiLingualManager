@@ -202,12 +202,18 @@
 		isModalVisible = true;
 	}
 
-	private void DeleteRecord(string code)
+	private async void DeleteRecord(string code)
 	{
 		var recordToDelete = multilingualStrings.FirstOrDefault(m => m.Code == code);
 		if (recordToDelete != null)
 		{
-			multilingualStrings.Remove(recordToDelete);
+			mode = 'D';
+			LangManagerService _repo = new(Configs.BaseUrl);
+			LangManagerActionRequestDto requestDto = new();
+			requestDto.Code = code;
+			requestDto.Action = mode;
+			await _repo.Action(requestDto);
+			await ReloadPage();
 		}
 	}
 	private bool isSave(LanguageStringResponseDto item)
@@ -256,6 +262,7 @@
 			else
 			{
 				HideModal();
+				await ReloadPage();
 			}
 		}
 	}
@@ -288,6 +295,11 @@
                 });
             ");
 		}
+	}
+
+	private async Task ReloadPage()
+	{
+		await JSRuntime.InvokeVoidAsync("location.reload");
 	}
 
 }
