@@ -2,16 +2,14 @@
 
 @page "/multilingual-strings"
 
-@* The current culture (English or Arabic) can be detected automatically or set manually *@
 @using System.Globalization
 @using MLSM.UI.Models
 @using MLSM.UI.Service
 @using Microsoft.AspNetCore.Components.Forms
 @using Microsoft.JSInterop
 
-@* For simplicity, we will assume there's a mechanism to switch between languages *@
 @{
-	string currentCulture = CultureInfo.CurrentCulture.Name; // Detects the current culture
+	string currentCulture = CultureInfo.CurrentCulture.Name; 
 }
 
 <div style="
@@ -28,14 +26,13 @@
         background-color: #fff;
         box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 	">
-		@* <div style="margin-bottom: 10px; text-align: center;"> *@
 		<input type="search" id="tableSearch" placeholder="Search"
 			   style="padding: 6px 12px; width: 300px; border-radius: 4px; border: 1px solid #ccc;" />
 		<button style="float:right" class="btn btn-success" @onclick="ShowAddModal">@("Add New")</button>
 
-		@* </div> *@
 	</div>
 </div>
+
 <div style="
     display: flex;
     justify-content: center;
@@ -87,40 +84,6 @@
 	</div>
 </div>
 
-
-@* <table class="table">
-	<thead>
-		<tr>
-			<th>@(currentCulture == "en-US" ? "Code" : "شفرة")</th>
-			<th>
-				@(currentCulture == "en-US" ? "English Text" : "النص الانجليزي")
-			</th>
-			<th>
-				@(currentCulture == "en-US" ? "Arabic Text" : "النص العربي")
-			</th>
-			<th>@(currentCulture == "en-US" ? "Tags" : "العلامات")</th>
-			<th>@(currentCulture == "en-US" ? "Actions" : "إجراءات")</th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var item in multilingualStrings)
-		{
-			<tr>
-				<th>@item.Code</th>
-				<td>@item.TitleEn</td>
-				<td>@item.TitleAr</td>
-				<td>@item.Tags</td>
-				<td>
-					<button @onclick="() => EditRecord(item)" class="btn btn-primary btn-sm">@("Edit")</button>
-					<button @onclick="() => DeleteRecord(item.Code)" class="btn btn-danger btn-sm">@("Delete")</button>
-				</td>
-			</tr>
-		}
-	</tbody>
-</table> *@
-
-
-<!-- Modal for adding/editing records -->
 @if (isModalVisible)
 {
 	<div class="modal show" style="display:block;">
@@ -164,6 +127,7 @@
 		</div>
 	</div>
 }
+
 
 @code {
 	private string oldCode { get; set; } = "";
@@ -217,6 +181,7 @@
 			await ReloadPage();
 		}
 	}
+
 	private bool isSave(LanguageStringResponseDto item)
 	{
 		if (string.IsNullOrEmpty(item.Code))
@@ -236,6 +201,7 @@
 		}
 		return true;
 	}
+
 	private async Task HandleValidSubmit()
 	{
 		if (!isSave(currentItem))
@@ -267,6 +233,7 @@
 			}
 		}
 	}
+
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if (firstRender)
@@ -302,7 +269,6 @@
 	{
 		await JSRuntime.InvokeVoidAsync("location.reload");
 	}
-
 }
 
 

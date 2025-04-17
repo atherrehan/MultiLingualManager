@@ -27,7 +27,6 @@ app.MapPost("/api/strings", async (LanguageStringEntity newString, AppDbContext 
             ResponseMessage = $"A record with Code '{newString.Code}' already exists."
         });
 
-    // Add the new record
     db.MultilingualStrings.Add(newString);
     await db.SaveChangesAsync();
 
@@ -37,7 +36,6 @@ app.MapPost("/api/strings", async (LanguageStringEntity newString, AppDbContext 
         ResponseMessage = "Success."
     });
 });
-
 
 app.MapDelete("/api/strings/{code}", async (string code, AppDbContext db) =>
 {
