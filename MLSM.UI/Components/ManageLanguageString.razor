@@ -3,8 +3,8 @@
 @page "/multilingual-strings"
 
 @using System.Globalization
-@using MLSM.UI.Models
-@using MLSM.UI.Service
+@using MLSM.UI.Client.Models
+@using MLSM.UI.Client.Service
 @using Microsoft.AspNetCore.Components.Forms
 @using Microsoft.JSInterop
 
@@ -138,7 +138,7 @@
 
 	protected override async Task OnInitializedAsync()
 	{
-		LangManagerService _repo = new(Configs.BaseUrl);
+		LanguageManagerService _repo = new(Configs.BaseUrl);
 		multilingualStrings = await _repo.GetStrings();
 	}
 
@@ -173,7 +173,7 @@
 		if (recordToDelete != null)
 		{
 			mode = 'D';
-			LangManagerService _repo = new(Configs.BaseUrl);
+			LanguageManagerService _repo = new(Configs.BaseUrl);
 			LangManagerActionRequestDto requestDto = new();
 			requestDto.Code = code;
 			requestDto.Action = mode;
@@ -211,7 +211,7 @@
 		else
 		{
 			hasValidationErrors = false;
-			LangManagerService _repo = new(Configs.BaseUrl);
+			LanguageManagerService _repo = new(Configs.BaseUrl);
 			GenericResponseApi responseApi = new();
 			LangManagerActionRequestDto requestDto = new();
 			requestDto.Action = mode;

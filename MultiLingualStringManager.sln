@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLSM.Api", "MLSM.Api\MLSM.A
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "MLSM.Shared", "MLSM.Shared\MLSM.Shared.shproj", "{D8FFD0B4-19E6-4B0E-9486-BA8725B7A7C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLSM.UI.Client", "MLSM.UI.Client\MLSM.UI.Client.csproj", "{FC55AEEA-B09C-4218-8C63-74920B6F95ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{972960D9-99F8-419C-BB0B-47F81592BD78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{972960D9-99F8-419C-BB0B-47F81592BD78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{972960D9-99F8-419C-BB0B-47F81592BD78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC55AEEA-B09C-4218-8C63-74920B6F95ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC55AEEA-B09C-4218-8C63-74920B6F95ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC55AEEA-B09C-4218-8C63-74920B6F95ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC55AEEA-B09C-4218-8C63-74920B6F95ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

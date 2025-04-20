@@ -1,12 +1,10 @@
 ﻿@page "/"
-@rendermode InteractiveServer
+@using MLSM.UI.Client.Models
 @using MLSM.UI.Components
-@using MLSM.UI.Models
+@rendermode InteractiveServer
 <PageTitle>Language Test UI</PageTitle>
 
-
 <ManageLanguageString></ManageLanguageString>
-@* <LanguageString IsVisible=IsPopupVisibile IsVisibleSave=IsSaveButtonVisible Properties=properties></LanguageString> *@
 
 @code {
 	private int currentCount = 0;

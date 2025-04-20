@@ -1,4 +1,4 @@
-﻿namespace MLSM.UI.Models
+﻿namespace MLSM.UI.Client.Models
 {
     public class GenericResponseApi
     {

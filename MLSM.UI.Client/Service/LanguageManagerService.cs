@@ -1,17 +1,19 @@
-﻿using MLSM.UI.Models;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Text;
+using MLSM.UI.Client.Models;
 
-namespace MLSM.UI.Service
+namespace MLSM.UI.Client.Service
 {
-    public class LangManagerService
+    public class LanguageManagerService
     {
         private string _apiUrl;
-        public LangManagerService(string apiUrl)
+
+        public LanguageManagerService(string apiUrl)
         {
             _apiUrl = apiUrl;
         }
+
         public async Task<List<LanguageStringResponseDto>> GetStrings()
         {
             var result = new List<LanguageStringResponseDto>();
@@ -29,6 +31,7 @@ namespace MLSM.UI.Service
                 return result ?? new List<LanguageStringResponseDto>();
             }
         }
+
         public async Task<GenericResponseApi> Action(LangManagerActionRequestDto requestDto)
         {
             var result = new GenericResponseApi();

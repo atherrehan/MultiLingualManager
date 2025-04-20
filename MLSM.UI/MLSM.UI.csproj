@@ -5,9 +5,20 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <Title>StringManagerUI</Title>
-    <Version>1.4.2</Version>
+    <Version>1.4.5</Version>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Models\**" />
+    <Compile Remove="Service\**" />
+    <Content Remove="Models\**" />
+    <Content Remove="Service\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <EmbeddedResource Remove="Service\**" />
+    <None Remove="Models\**" />
+    <None Remove="Service\**" />
+  </ItemGroup>
 
 
   <ItemGroup>
@@ -16,6 +27,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.3" />
+    <PackageReference Include="MLSM.UI.Client" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
