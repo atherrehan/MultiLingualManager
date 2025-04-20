@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLSM.Backoffice", "MLSM.Bac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLSM.Api", "MLSM.Api\MLSM.Api.csproj", "{972960D9-99F8-419C-BB0B-47F81592BD78}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "MLSM.Shared", "MLSM.Shared\MLSM.Shared.shproj", "{D8FFD0B4-19E6-4B0E-9486-BA8725B7A7C6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLSM.UI.Client", "MLSM.UI.Client\MLSM.UI.Client.csproj", "{FC55AEEA-B09C-4218-8C63-74920B6F95ED}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLSM.UI.Client.BackOffice", "MLSM.UI.Client.BackOffice\MLSM.UI.Client.BackOffice.csproj", "{0419036A-1750-4C02-AA3E-B03E5C724F88}"
@@ -47,9 +45,5 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {93271F87-B2B5-4694-8B49-C8E8B68E08BC}
-	EndGlobalSection
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		MLSM.Shared\MLSM.Shared.projitems*{972960d9-99f8-419c-bb0b-47f81592bd78}*SharedItemsImports = 5
-		MLSM.Shared\MLSM.Shared.projitems*{d8ffd0b4-19e6-4b0e-9486-ba8725b7a7c6}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

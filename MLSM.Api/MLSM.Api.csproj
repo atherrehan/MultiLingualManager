@@ -14,6 +14,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <Import Project="..\MLSM.Shared\MLSM.Shared.projitems" Label="Shared" />
-
 </Project>
