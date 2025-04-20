@@ -9,12 +9,6 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 );
 var app = builder.Build();
 
-app.MapGet("/api/strings", async (AppDbContext db) =>
-{
-    var data = await db.MultilingualStrings.ToListAsync();
-    return Results.Ok(data);
-});
-
 app.MapPost("/api/strings", async (LanguageStringEntity newString, AppDbContext db) =>
 {
     var existingRecord = await db.MultilingualStrings
@@ -37,22 +31,10 @@ app.MapPost("/api/strings", async (LanguageStringEntity newString, AppDbContext 
     });
 });
 
-app.MapDelete("/api/strings/{code}", async (string code, AppDbContext db) =>
+app.MapGet("/api/strings", async (AppDbContext db) =>
 {
-    var item = await db.MultilingualStrings.FirstOrDefaultAsync(x => x.Code == code);
-
-    if (item is null)
-    {
-        return Results.BadRequest(new GenericResponseApi { ResponseCode = "404", ResponseMessage = $"No record found with Code '{code}'" });
-    }
-
-    db.MultilingualStrings.Remove(item);
-    await db.SaveChangesAsync();
-    return Results.Created($"/api/strings/{code}", new GenericResponseApi
-    {
-        ResponseCode = "201",
-        ResponseMessage = "Success."
-    });
+    var data = await db.MultilingualStrings.ToListAsync();
+    return Results.Ok(data);
 });
 
 app.MapPut("/api/strings/{code}", async (string code, LanguageStringEntity updatedString, AppDbContext db) =>
@@ -96,6 +78,24 @@ app.MapPut("/api/strings/{code}", async (string code, LanguageStringEntity updat
 
     await db.SaveChangesAsync();
 
+    return Results.Created($"/api/strings/{code}", new GenericResponseApi
+    {
+        ResponseCode = "201",
+        ResponseMessage = "Success."
+    });
+});
+
+app.MapDelete("/api/strings/{code}", async (string code, AppDbContext db) =>
+{
+    var item = await db.MultilingualStrings.FirstOrDefaultAsync(x => x.Code == code);
+
+    if (item is null)
+    {
+        return Results.BadRequest(new GenericResponseApi { ResponseCode = "404", ResponseMessage = $"No record found with Code '{code}'" });
+    }
+
+    db.MultilingualStrings.Remove(item);
+    await db.SaveChangesAsync();
     return Results.Created($"/api/strings/{code}", new GenericResponseApi
     {
         ResponseCode = "201",
