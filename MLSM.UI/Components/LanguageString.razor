@@ -1,5 +1,5 @@
-﻿@* @inject IJSRuntime JSRuntime
- *@
+﻿ @inject IJSRuntime JSRuntime
+ 
 @page "/multilingual-strings"
 
 @using System.Globalization
@@ -17,7 +17,7 @@
     justify-content: center;
     margin-top: 20px;
 ">
-	@* <div style="
+	 <div style="
         max-height: 100px;
         width: 59%;
         overflow: auto;
@@ -25,12 +25,12 @@
         border-radius: 8px;
         background-color: #fff;
         box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-	"> *@
-		@* <input type="search" id="tableSearch" placeholder="Search"
-			   style="padding: 6px 12px; width: 300px; border-radius: 4px; border: 1px solid #ccc;" /> *@
-		@* <button style="float:right" class="btn btn-success" @onclick="ShowAddModal">@("Add New")</button> *@
+	"> 
+		 <input type="search" id="tableSearch" placeholder="Search"
+			   style="padding: 6px 12px; width: 300px; border-radius: 4px; border: 1px solid #ccc;" /> 
+		 <button style="float:right" class="btn btn-success" @onclick="ShowAddModal">@("Add New")</button> 
 
-	@* </div> *@
+	 </div> 
 </div>
 
 <div style="
@@ -55,8 +55,8 @@
 					<th style="width: 100px; border-bottom: 2px solid #ddd;">@(currentCulture == "en-US" ? "Code" : "شفرة")</th>
 					<th style="width: 200px; border-bottom: 2px solid #ddd;">@(currentCulture == "en-US" ? "English Text" : "النص الانجليزي")</th>
 					<th style="width: 200px; border-bottom: 2px solid #ddd;">@(currentCulture == "en-US" ? "Arabic Text" : "النص العربي")</th>
-					@* <th style="width: 150px; border-bottom: 2px solid #ddd;">@(currentCulture == "en-US" ? "Tags" : "العلامات")</th> *@
-					@* <th style="width: 150px; border-bottom: 2px solid #ddd;">@(currentCulture == "en-US" ? "Actions" : "إجراءات")</th> *@
+					 @* <th style="width: 150px; border-bottom: 2px solid #ddd;">@(currentCulture == "en-US" ? "Tags" : "العلامات")</th>  *@
+					 <th style="width: 150px; border-bottom: 2px solid #ddd;">@(currentCulture == "en-US" ? "Actions" : "إجراءات")</th> 
 				</tr>
 			</thead>
 			<tbody>
@@ -66,8 +66,8 @@
 						<td style="padding: 8px; border-bottom: 1px solid #eee;">@item.Code</td>
 						<td style="padding: 8px; border-bottom: 1px solid #eee;">@item.TitleEn</td>
 						<td style="padding: 8px; border-bottom: 1px solid #eee;">@item.TitleAr</td>
-						@* <td style="padding: 8px; border-bottom: 1px solid #eee;">@item.Tags</td> *@
-					@* 	<td style="padding: 8px; border-bottom: 1px solid #eee;">
+						 @* <td style="padding: 8px; border-bottom: 1px solid #eee;">@item.Tags</td>  *@
+					 	<td style="padding: 8px; border-bottom: 1px solid #eee;">
 							<button @onclick="() => EditRecord(item)"
 									style="padding: 5px 10px; margin-right: 5px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
 								Edit
@@ -76,7 +76,7 @@
 									style="padding: 5px 10px; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">
 								Delete
 							</button>
-						</td> *@
+						</td> 
 					</tr>
 				}
 			</tbody>
@@ -89,16 +89,16 @@
 	<div class="modal show" style="display:block;">
 		<div class="modal-dialog">
 			<div class="modal-content">
-			@* 	<div class="modal-header">
+			 	<div class="modal-header">
 					<h5 class="modal-title">@("Add/Edit Record")</h5>
 					<button style="margin-left:60%" type="button" class="close" @onclick="HideModal">&times;</button>
-				</div> *@
+				</div> 
 				<div class="modal-body">
 					@if (hasValidationErrors)
 					{
 						<span style=" margin-bottom:20px; color: red; font-weight:200"> @requiredField</span>
 					}
-					<EditForm Model="currentItem">@*  OnValidSubmit="HandleValidSubmit"> *@
+					<EditForm Model="currentItem">  OnValidSubmit="HandleValidSubmit"> 
 						<DataAnnotationsValidator />
 						<ValidationSummary />
 
@@ -115,10 +115,10 @@
 							<label>@(currentCulture == "en-US" ? "TitleAr" : "عنوان بالعربية")</label>
 							<InputText class="form-control" @bind-Value="currentItem.TitleAr" />
 						</div>
-					@* 	<div class="form-group" style="margin-top:10px">
+					 @* 	<div class="form-group" style="margin-top:10px">
 							<label>@(currentCulture == "en-US" ? "Tags" : "العلامات")</label>
 							<InputText class="form-control" @bind-Value="currentItem.Tags" />
-						</div> *@
+						</div>  *@
 
 						<button style="margin-top:10px" type="submit" class="btn btn-primary">@("Save")</button>
 					</EditForm>
@@ -130,6 +130,20 @@
 
 
 @code {
+	public class LangManagerActionRequestDto
+	{
+		public string OldCode { get; set; } = string.Empty;
+		public string Code { get; set; } = string.Empty;
+		public string TitleEn { get; set; } = string.Empty;
+		public string TitleAr { get; set; } = string.Empty;
+		public string Tags { get; set; } = string.Empty;
+		public char Action { get; set; }
+
+	}
+	public class LangEdit
+	{
+		public string Code { get; set; } = string.Empty;
+	}
 	private string oldCode { get; set; } = "";
 	private bool hasValidationErrors = false;
 	private string requiredField { get; set; } = "";
@@ -145,130 +159,130 @@
 	private LanguageStringResponseDto currentItem = new LanguageStringResponseDto();
 	private bool isModalVisible = false;
 
-	// private void ShowAddModal()
-	// {
-	// 	mode = 'C';
-	// 	currentItem = new LanguageStringResponseDto();
-	// 	isModalVisible = true;
-	// }
+	private void ShowAddModal()
+	{
+		mode = 'C';
+		currentItem = new LanguageStringResponseDto();
+		isModalVisible = true;
+	}
 
-	// private void HideModal()
-	// {
-	// 	isModalVisible = false;
-	// }
+	private void HideModal()
+	{
+		isModalVisible = false;
+	}
 
-	// private void EditRecord(LanguageStringResponseDto item)
-	// {
-	// 	// LangEdit oneUse = new();
-	// 	// oneUse.Code = item.Code;
-	// 	// mode = 'U';
-	// 	// oldCode = oneUse.Code;
-	// 	// currentItem = item;
-	// 	// isModalVisible = true;
-	// }
+	private void EditRecord(LanguageStringResponseDto item)
+	{
+		LangEdit oneUse = new();
+		oneUse.Code = item.Code;
+		mode = 'U';
+		oldCode = oneUse.Code;
+		currentItem = item;
+		isModalVisible = true;
+	}
 
-	// private async void DeleteRecord(string code)
-	// {
-	// 	// var recordToDelete = multilingualStrings.FirstOrDefault(m => m.Code == code);
-	// 	// if (recordToDelete != null)
-	// 	// {
-	// 	// 	mode = 'D';
-	// 	// 	LanguageManagerService _repo = new(Configs.BaseUrl);
-	// 	// 	LangManagerActionRequestDto requestDto = new();
-	// 	// 	requestDto.Code = code;
-	// 	// 	requestDto.Action = mode;
-	// 	// 	await _repo.Action(requestDto);
-	// 	// 	await ReloadPage();
-	// 	// }
-	// }
+	private async void DeleteRecord(string code)
+	{
+		var recordToDelete = multilingualStrings.FirstOrDefault(m => m.Code == code);
+		if (recordToDelete != null)
+		{
+			mode = 'D';
+			LanguageManagerService _repo = new(Configs.BaseUrl);
+			LangManagerActionRequestDto requestDto = new();
+			requestDto.Code = code;
+			requestDto.Action = mode;
+			// await _repo.Action(requestDto);
+			await ReloadPage();
+		}
+	}
 
-	// private bool isSave(LanguageStringResponseDto item)
-	// {
-	// 	if (string.IsNullOrEmpty(item.Code))
-	// 	{
-	// 		requiredField = "Code is required";
-	// 		return false;
-	// 	}
-	// 	else if (string.IsNullOrEmpty(item.TitleEn))
-	// 	{
-	// 		requiredField = "TitleEn is required";
-	// 		return false;
-	// 	}
-	// 	else if (string.IsNullOrEmpty(item.TitleAr))
-	// 	{
-	// 		requiredField = "TitleAr is required";
-	// 		return false;
-	// 	}
-	// 	return true;
-	// }
+	private bool isSave(LanguageStringResponseDto item)
+	{
+		if (string.IsNullOrEmpty(item.Code))
+		{
+			requiredField = "Code is required";
+			return false;
+		}
+		else if (string.IsNullOrEmpty(item.TitleEn))
+		{
+			requiredField = "TitleEn is required";
+			return false;
+		}
+		else if (string.IsNullOrEmpty(item.TitleAr))
+		{
+			requiredField = "TitleAr is required";
+			return false;
+		}
+		return true;
+	}
 
-	// private async Task HandleValidSubmit()
-	// {
-	// 	// if (!isSave(currentItem))
-	// 	// {
-	// 	// 	hasValidationErrors = true;
-	// 	// }
-	// 	// else
-	// 	// {
-	// 	// 	hasValidationErrors = false;
-	// 	// 	LanguageManagerService _repo = new(Configs.BaseUrl);
-	// 	// 	GenericResponseApi responseApi = new();
-	// 	// 	LangManagerActionRequestDto requestDto = new();
-	// 	// 	requestDto.Action = mode;
-	// 	// 	requestDto.OldCode = oldCode;
-	// 	// 	requestDto.Code = currentItem.Code;
-	// 	// 	requestDto.TitleEn = currentItem.TitleEn;
-	// 	// 	requestDto.TitleAr = currentItem.TitleAr;
-	// 	// 	// requestDto.Tags = currentItem.Tags;
-	// 	// 	responseApi = await _repo.Action(requestDto);
-	// 	// 	if (!responseApi.ResponseCode.Equals("201"))
-	// 	// 	{
-	// 	// 		hasValidationErrors = true;
-	// 	// 		requiredField = responseApi.ResponseMessage;
-	// 	// 	}
-	// 	// 	else
-	// 	// 	{
-	// 	// 		HideModal();
-	// 	// 		await ReloadPage();
-	// 	// 	}
-	// 	// }
-	// }
+	private async Task HandleValidSubmit()
+	{
+		if (!isSave(currentItem))
+		{
+			hasValidationErrors = true;
+		}
+		else
+		{
+			hasValidationErrors = false;
+			LanguageManagerService _repo = new(Configs.BaseUrl);
+			GenericResponseApi responseApi = new();
+			LangManagerActionRequestDto requestDto = new();
+			requestDto.Action = mode;
+			requestDto.OldCode = oldCode;
+			requestDto.Code = currentItem.Code;
+			requestDto.TitleEn = currentItem.TitleEn;
+			requestDto.TitleAr = currentItem.TitleAr;
+			// requestDto.Tags = currentItem.Tags;
+			// responseApi = await _repo.Action(requestDto);
+			if (!responseApi.ResponseCode.Equals("201"))
+			{
+				hasValidationErrors = true;
+				requiredField = responseApi.ResponseMessage;
+			}
+			else
+			{
+				HideModal();
+				await ReloadPage();
+			}
+		}
+	}
 
-	// protected override async Task OnAfterRenderAsync(bool firstRender)
-	// {
-	// 	// if (firstRender)
-	// 	// {
-	// 	// 	await JSRuntime.InvokeVoidAsync("eval", @"
- //  //               document.getElementById('tableSearch').addEventListener('input', function(event) {
- //  //                   const searchTerm = event.target.value.toLowerCase();
- //  //                   const table = document.getElementById('dataTable');
- //  //                   const rows = table.getElementsByTagName('tr');
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await JSRuntime.InvokeVoidAsync("eval", @"
+                document.getElementById('tableSearch').addEventListener('input', function(event) {
+                    const searchTerm = event.target.value.toLowerCase();
+                    const table = document.getElementById('dataTable');
+                    const rows = table.getElementsByTagName('tr');
 
- //  //                   for (let i = 1; i < rows.length; i++) {  // Start from 1 to skip header row
- //  //                       let row = rows[i];
- //  //                       let cells = row.getElementsByTagName('td');
- //  //                       let matchFound = false;
+                    for (let i = 1; i < rows.length; i++) {  // Start from 1 to skip header row
+                        let row = rows[i];
+                        let cells = row.getElementsByTagName('td');
+                        let matchFound = false;
 
- //  //                       // Loop through all cells (excluding actions) to search the text
- //  //                       for (let j = 0; j < cells.length - 1; j++) {
- //  //                           if (cells[j].textContent.toLowerCase().includes(searchTerm)) {
- //  //                               matchFound = true;
- //  //                               break;
- //  //                           }
- //  //                       }
+                        // Loop through all cells (excluding actions) to search the text
+                        for (let j = 0; j < cells.length - 1; j++) {
+                            if (cells[j].textContent.toLowerCase().includes(searchTerm)) {
+                                matchFound = true;
+                                break;
+                            }
+                        }
 
- //  //                       // Toggle row visibility based on search match
- //  //                       row.style.display = matchFound ? '' : 'none';
- //  //                   }
- //  //               });
- //  //           ");
-	// 	// }
-	// }
+                        // Toggle row visibility based on search match
+                        row.style.display = matchFound ? '' : 'none';
+                    }
+                });
+            ");
+		}
+	}
 
-	// private async Task ReloadPage()
-	// {
-	// 	// await JSRuntime.InvokeVoidAsync("location.reload");
-	// }
+	private async Task ReloadPage()
+	{
+		await JSRuntime.InvokeVoidAsync("location.reload");
+	}
 }
 
 
