@@ -1,0 +1,12 @@
+﻿@using MLSM.UI.Client.Models
+@using MLSM.UI.Client.Service
+<p>@lastUpdated.LastUpdateTimeStamp</p>
+
+@code {
+	private LanguageStringFiltered lastUpdated = new();
+	protected override async Task OnInitializedAsync()
+	{
+		LanguageManagerService _repo = new(Configs.BaseUrl);
+		lastUpdated = await _repo.GetLastModified();
+	}
+}

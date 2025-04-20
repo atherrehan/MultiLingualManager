@@ -1,0 +1,73 @@
+﻿@page "/multilingual-strings-filter"
+
+@using System.Globalization
+@using MLSM.UI.Client.Models
+@using MLSM.UI.Client.Service
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.JSInterop
+
+@{
+	string currentCulture = CultureInfo.CurrentCulture.Name;
+}
+
+<div style="
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+">
+</div>
+
+<div style="
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+">
+	<div style="
+        max-height: 1000px;
+        max-width: 59%;
+		min-width:59%;
+        overflow: auto;
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: #fff;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+	">
+		<table id="dataTable" style="width: 100%; border-collapse: collapse; text-align: left;">
+			<thead>
+				<tr>
+					<th style="width: 100px; border-bottom: 2px solid #ddd;">@(currentCulture == "en-US" ? "Code" : "شفرة")</th>
+					<th style="width: 200px; border-bottom: 2px solid #ddd;">@(currentCulture == "en-US" ? "English Text" : "النص الانجليزي")</th>
+					<th style="width: 200px; border-bottom: 2px solid #ddd;">@(currentCulture == "en-US" ? "Arabic Text" : "النص العربي")</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in multilingualStrings)
+				{
+					<tr>
+						<td style="padding: 8px; border-bottom: 1px solid #eee;">@item.Code</td>
+						<td style="padding: 8px; border-bottom: 1px solid #eee;">@item.TitleEn</td>
+						<td style="padding: 8px; border-bottom: 1px solid #eee;">@item.TitleAr</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+@code {
+	[Parameter]
+	public string DateTimeStamp { get; set; } = string.Empty;
+	List<LanguageStringResponseDto> multilingualStrings = new();
+
+	protected override async Task OnInitializedAsync()
+	{
+		LanguageManagerService _repo = new(Configs.BaseUrl);
+		multilingualStrings = await _repo.GetFilteredStrings(DateTimeStamp);
+	}
+
+	private LanguageStringResponseDto currentItem = new LanguageStringResponseDto();
+
+}
+
+

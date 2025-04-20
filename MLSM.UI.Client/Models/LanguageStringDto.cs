@@ -1,26 +1,15 @@
 ﻿namespace MLSM.UI.Client.Models
 {
-    public class LangEdit
+    public class LanguageStringFiltered
     {
-        public string Code { get; set; } = string.Empty;
+        public string LastUpdateTimeStamp { get; set; } = string.Empty;
     }
-    public class LangManagerActionRequestDto
-    {
-        public string OldCode { get; set; } = string.Empty;
-        public string Code { get; set; } = string.Empty;
-        public string TitleEn { get; set; } = string.Empty;
-        public string TitleAr { get; set; } = string.Empty;
-        public string Tags { get; set; } = string.Empty;
-        public char Action { get; set; }
 
-    }
     public class LanguageStringResponseDto
     {
         public string Code { get; set; } = string.Empty;
         public string TitleEn { get; set; } = string.Empty;
         public string TitleAr { get; set; } = string.Empty;
-        public string Tags { get; set; } = string.Empty;
-        public string LastUpdateTimeStamp { get; set; } = string.Empty;
     }
     public class LanguageStringComponentResponseDto
     {

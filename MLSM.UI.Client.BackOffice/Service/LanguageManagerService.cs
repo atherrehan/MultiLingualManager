@@ -69,7 +69,6 @@ namespace MLSM.UI.Client.BackOffice.Service
             }
         }
 
-
         public async Task<GenericResponseApi> Action(LangManagerActionRequestDto requestDto)
         {
             var result = new GenericResponseApi();

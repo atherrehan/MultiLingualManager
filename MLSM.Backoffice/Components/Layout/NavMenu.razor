@@ -5,14 +5,61 @@
 </div>
 
 <input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+<div class="nav-scrollable">
+	<nav class="nav flex-column">
 
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
+		<!-- Home with collapsible sub-items -->
+		<details class="nav-item px-3" open>
+			<summary class="nav-link">
+				<span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Client
+			</summary>
+			<div class="ps-4">
+				<div class="nav-item">
+					<a class="nav-link" href="LastUpdated">
+						<span class="bi" aria-hidden="true"></span> LastUpdated
+					</a>
+				</div>
+
+				<div class="nav-item">
+					<a class="nav-link" href="filter">
+						<span class="bi" aria-hidden="true"></span> Filter
+					</a>
+				</div>
+
+				<div class="nav-item">
+					<a class="nav-link" href="strings">
+						<span class="bi" aria-hidden="true"></span> AllStrings
+					</a>
+				</div>
+
+			</div>
+
+			<summary class="nav-link">
+				<span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Server
+			</summary>
+			<div class="ps-4">
+				<div class="nav-item">
+					<a class="nav-link" href="serverfilter">
+						<span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Filter
+					</a>
+				</div>
+				<div class="nav-item">
+					<a class="nav-link" href="serverstrings">
+						<span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> AllStrings
+					</a>
+				</div>
+			</div>
+		</details>
+
+	</nav>
+</div>
+@* <div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
 	<nav class="nav flex-column">
 		<div class="nav-item px-3">
 			<NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-				<span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Manage Strings
+				<span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Client Strings
 			</NavLink>
 		</div>
 	</nav>
-</div>
+</div> *@
 

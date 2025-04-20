@@ -12,7 +12,7 @@ namespace MLSM.Api.Services
             {
                 var data = await db.MultilingualStrings.OrderByDescending(x => x.LastUpdateTimeStamp).FirstOrDefaultAsync();
                 var response = data?.LastUpdateTimeStamp.HasValue == true ? data.LastUpdateTimeStamp.Value.ToString("yyyy-MM-dd HH:mm:ss.fff") : null;
-                return Results.Ok(new { DateTimeStamp = response });
+                return Results.Ok(new { LastUpdateTimeStamp = response });
             });
 
             client.MapGet("/api/filteredstrings/{filter}", async (string filter, AppDbContext db) =>

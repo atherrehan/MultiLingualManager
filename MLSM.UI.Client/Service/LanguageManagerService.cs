@@ -14,6 +14,24 @@ namespace MLSM.UI.Client.Service
             _apiUrl = apiUrl;
         }
 
+        public async Task<LanguageStringFiltered> GetLastModified()
+        {
+            var result = new LanguageStringFiltered();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(_apiUrl);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = await client.GetAsync("api/lastmodified");
+                if (response.IsSuccessStatusCode)
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    result = JsonSerializer.Deserialize<LanguageStringFiltered>(res, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                }
+                return result ?? new LanguageStringFiltered();
+            }
+        }
+
         public async Task<List<LanguageStringResponseDto>> GetStrings()
         {
             var result = new List<LanguageStringResponseDto>();
@@ -32,40 +50,23 @@ namespace MLSM.UI.Client.Service
             }
         }
 
-        public async Task<GenericResponseApi> Action(LangManagerActionRequestDto requestDto)
+        public async Task<List<LanguageStringResponseDto>> GetFilteredStrings(string dateTimeStamp)
         {
-            var result = new GenericResponseApi();
+            var result = new List<LanguageStringResponseDto>();
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(_apiUrl);
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                string jsonContent = JsonSerializer.Serialize(requestDto);
-                HttpContent httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-                HttpResponseMessage response;
-                if (requestDto.Action == 'C')
+                HttpResponseMessage response = await client.GetAsync($"api/filteredstrings/{dateTimeStamp}");
+                if (response.IsSuccessStatusCode)
                 {
-                    response = await client.PostAsync("api/strings", httpContent);
+                    string res = await response.Content.ReadAsStringAsync();
+                    result = JsonSerializer.Deserialize<List<LanguageStringResponseDto>>(res, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
                 }
-                else if (requestDto.Action == 'U')
-                {
-                    response = await client.PutAsync("api/strings/" + requestDto.OldCode, httpContent);
-
-                }
-                else
-                {
-                    response = await client.DeleteAsync("api/strings/" + requestDto.Code);
-
-                }
-
-                string res = await response.Content.ReadAsStringAsync();
-                if (!string.IsNullOrEmpty(res))
-                {
-                    result = JsonSerializer.Deserialize<GenericResponseApi>(res, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                }
-
-                return result ?? new GenericResponseApi { ResponseCode = "500", ResponseMessage = "Internal server error" };
+                return result ?? new List<LanguageStringResponseDto>();
             }
         }
+
     }
 }
