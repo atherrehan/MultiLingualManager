@@ -13,6 +13,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "MLSM.Shared", "MLSM.Shared\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLSM.UI.Client", "MLSM.UI.Client\MLSM.UI.Client.csproj", "{FC55AEEA-B09C-4218-8C63-74920B6F95ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLSM.UI.Client.BackOffice", "MLSM.UI.Client.BackOffice\MLSM.UI.Client.BackOffice.csproj", "{0419036A-1750-4C02-AA3E-B03E5C724F88}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{FC55AEEA-B09C-4218-8C63-74920B6F95ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC55AEEA-B09C-4218-8C63-74920B6F95ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC55AEEA-B09C-4218-8C63-74920B6F95ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0419036A-1750-4C02-AA3E-B03E5C724F88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0419036A-1750-4C02-AA3E-B03E5C724F88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0419036A-1750-4C02-AA3E-B03E5C724F88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0419036A-1750-4C02-AA3E-B03E5C724F88}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

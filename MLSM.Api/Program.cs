@@ -31,6 +31,23 @@ app.MapPost("/api/strings", async (LanguageStringEntity newString, AppDbContext 
     });
 });
 
+app.MapGet("/api/lastmodified", async (AppDbContext db) =>
+{
+    var data = await db.MultilingualStrings.OrderByDescending(x => x.LastUpdateTimeStamp).FirstOrDefaultAsync();
+    var response = data?.LastUpdateTimeStamp.HasValue == true ? data.LastUpdateTimeStamp.Value.ToString("yyyy-MM-dd HH:mm:ss.fff") : null;
+    return Results.Ok(new { DateTimeStamp = response });
+});
+
+app.MapGet("/api/filteredstrings/{filter}", async (string filter, AppDbContext db) =>
+{
+    if (!DateTime.TryParseExact(filter, "yyyy-MM-dd HH:mm:ss.fff", null, System.Globalization.DateTimeStyles.None, out var sinceFilter))
+    {
+        return Results.BadRequest("Invalid date format. Use 'yyyy-MM-dd HH:mm:ss.fff'");
+    }
+    var data = await db.MultilingualStrings.Where(x => x.LastUpdateTimeStamp.HasValue && x.LastUpdateTimeStamp.Value > sinceFilter).ToListAsync();
+    return Results.Ok(data);
+});
+
 app.MapGet("/api/strings", async (AppDbContext db) =>
 {
     var data = await db.MultilingualStrings.ToListAsync();
