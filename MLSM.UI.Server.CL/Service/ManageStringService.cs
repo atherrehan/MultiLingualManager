@@ -1,19 +1,18 @@
-﻿using MLSM.UI.Client.BackOffice.Models;
-using System.Net.Http.Headers;
-using System.Text;
+﻿using System.Net.Http.Headers;
 using System.Text.Json;
+using System.Text;
+using MLSM.UI.Server.CL.Models;
 
-namespace MLSM.UI.Client.BackOffice.Service
+namespace MLSM.UI.Server.CL.Service
 {
-    public class LanguageManagerService
+    public class ManageStringService
     {
         private string _apiUrl;
 
-        public LanguageManagerService(string apiUrl)
+        public ManageStringService(string apiUrl)
         {
             _apiUrl = apiUrl;
         }
-
         public async Task<List<LanguageStringResponseDto>> GetStrings()
         {
             var result = new List<LanguageStringResponseDto>();
@@ -22,7 +21,7 @@ namespace MLSM.UI.Client.BackOffice.Service
                 client.BaseAddress = new Uri(_apiUrl);
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = await client.GetAsync("api/strings");
+                HttpResponseMessage response = await client.GetAsync("api/serverstrings");
                 if (response.IsSuccessStatusCode)
                 {
                     string res = await response.Content.ReadAsStringAsync();
@@ -31,44 +30,6 @@ namespace MLSM.UI.Client.BackOffice.Service
                 return result ?? new List<LanguageStringResponseDto>();
             }
         }
-
-        public async Task<List<LanguageStringResponseDto>> GetStrings(LangStringFilter filter)
-        {
-            var result = new List<LanguageStringResponseDto>();
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(_apiUrl);
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                var queryString = $"?DateTimeStamp={filter.DateTimeStamp}";
-                HttpResponseMessage response = await client.GetAsync($"api/strings{queryString}");
-                if (response.IsSuccessStatusCode)
-                {
-                    string res = await response.Content.ReadAsStringAsync();
-                    result = JsonSerializer.Deserialize<List<LanguageStringResponseDto>>(res, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                }
-                return result ?? new List<LanguageStringResponseDto>();
-            }
-        }
-
-        public async Task<string> GetLastModified()
-        {
-            string result = "";
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(_apiUrl);
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = await client.GetAsync("api/strings");
-                if (response.IsSuccessStatusCode)
-                {
-                    string res = await response.Content.ReadAsStringAsync();
-                    result = JsonSerializer.Deserialize<string>(res, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? "";
-                }
-                return result ?? "";
-            }
-        }
-
         public async Task<GenericResponseApi> Action(LangManagerActionRequestDto requestDto)
         {
             var result = new GenericResponseApi();
@@ -77,6 +38,7 @@ namespace MLSM.UI.Client.BackOffice.Service
                 client.BaseAddress = new Uri(_apiUrl);
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                requestDto.LastUpdateTimeStamp = DateTime.Now;
                 string jsonContent = JsonSerializer.Serialize(requestDto);
                 HttpContent httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
                 HttpResponseMessage response;
@@ -87,12 +49,10 @@ namespace MLSM.UI.Client.BackOffice.Service
                 else if (requestDto.Action == 'U')
                 {
                     response = await client.PutAsync("api/strings/" + requestDto.OldCode, httpContent);
-
                 }
                 else
                 {
                     response = await client.DeleteAsync("api/strings/" + requestDto.Code);
-
                 }
 
                 string res = await response.Content.ReadAsStringAsync();

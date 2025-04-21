@@ -1,8 +1,8 @@
-﻿namespace MLSM.UI.Client.BackOffice.Models
+﻿namespace MLSM.UI.Server.CL.Models
 {
-    public class LangStringFilter
+    public class LangEdit
     {
-        public string DateTimeStamp { get; set; } = string.Empty;
+        public string Code { get; set; } = string.Empty;
     }
     public class LangManagerActionRequestDto
     {
@@ -11,6 +11,7 @@
         public string TitleEn { get; set; } = string.Empty;
         public string TitleAr { get; set; } = string.Empty;
         public string Tags { get; set; } = string.Empty;
+        public DateTime? LastUpdateTimeStamp { get; set; } 
         public char Action { get; set; }
 
     }

@@ -1,4 +1,4 @@
-﻿namespace MLSM.UI.Client.BackOffice.Models
+﻿namespace MLSM.UI.Server.CL.Models
 {
     public static class Configs
     {

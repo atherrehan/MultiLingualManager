@@ -28,17 +28,7 @@ namespace MLSM.Api.Services
                     ResponseCode = "201",
                     ResponseMessage = "Success."
                 });
-            });            
-
-            server.MapGet("/api/serverfilteredstrings/{filter}", async (string filter, AppDbContext db) =>
-            {
-                if (!DateTime.TryParseExact(filter, "yyyy-MM-dd HH:mm:ss.fff", null, System.Globalization.DateTimeStyles.None, out var sinceFilter))
-                {
-                    return Results.BadRequest("Invalid date format. Use 'yyyy-MM-dd HH:mm:ss.fff'");
-                }
-                var data = await db.MultilingualStrings.Where(x => x.LastUpdateTimeStamp.HasValue && x.LastUpdateTimeStamp.Value > sinceFilter).ToListAsync();
-                return Results.Ok(data);
-            });
+            });                        
 
             server.MapGet("/api/serverstrings", async (AppDbContext db) =>
             {

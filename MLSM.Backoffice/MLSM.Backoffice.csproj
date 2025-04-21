@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MLSM.UI" Version="3.0.5" />
+    <PackageReference Include="MLSM.UI" Version="3.0.7" />
+    <PackageReference Include="MLSM.UI.Server" Version="7.0.1" />
   </ItemGroup>
 
 </Project>
